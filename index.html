@@ -38,6 +38,7 @@ const NAV_SECTIONS = [
   { id: "saas", label: "SaaS" },
   { id: "integrations", label: "Integrations" },
   { id: "claude", label: "Claude" },
+  { id: "lessons", label: "Lessons" },
   { id: "why", label: "Why Anthropic" },
 ];
 
@@ -537,6 +538,29 @@ function Portfolio() {
             </Reveal>
           ))}
         </div>
+
+        {/* Lessons */}
+        <Reveal>
+          <SectionHeading id="lessons">Lessons from Deploying Claude in Production</SectionHeading>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <div style={{ padding: "32px", background: "#FEFDFB", border: "1px solid #ece9e3", borderRadius: 8, marginBottom: 56 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+              {[
+                { title: "Deterministic routing before generative responses", detail: "Early on I let Claude handle everything end-to-end. It was impressive but unpredictable. The breakthrough was building a deterministic 22-intent classification layer first, then using Claude for response generation within guardrails. Reliability went up dramatically." },
+                { title: "Human-in-the-loop is a design decision, not a safety net", detail: "My system auto-sends routine responses but queues anything involving money, complaints, or access codes for human review. The line isn't 'AI vs. human' — it's knowing which decisions have reversible consequences and which don't." },
+                { title: "Self-learning systems need structured feedback loops", detail: "My Communications Agent improves over time, but only because I built explicit feedback mechanisms — tracking which drafted responses get edited before sending, what patterns those edits follow, and feeding that back into the system prompts." },
+                { title: "Context management matters more than prompt cleverness", detail: "The hardest engineering problem wasn't writing good prompts — it was getting the right context to Claude at the right time. Reservation details, guest history, property-specific quirks, previous messages. The quality of the context determines the quality of the output." },
+                { title: "Start with the workflow, not the model", detail: "Every failed automation attempt started with 'what can Claude do?' Every successful one started with 'what does this workflow actually look like?' The best AI systems are built around real operational processes, not around model capabilities." },
+              ].map((lesson, i) => (
+                <div key={i}>
+                  <div style={{ fontSize: "clamp(14px, 2vw, 16px)", fontWeight: 500, color: "#1a1a1a", marginBottom: 4 }}>{lesson.title}</div>
+                  <p style={{ fontSize: "clamp(12px, 1.6vw, 14px)", lineHeight: 1.65, color: "#5a5550", margin: 0 }}>{lesson.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
 
         {/* Why */}
         <Reveal>
